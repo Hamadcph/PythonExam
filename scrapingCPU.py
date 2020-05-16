@@ -20,10 +20,10 @@ with open('cpu.csv', 'a') as f:
         products_price = content_block.findAll("div", attrs={"class": "product-price"})
         products_review = content_block.findAll("div", attrs={"class": "review"})
         #print(names)
+        
         for name, price, rating in zip(products_info, products_price, products_review):
-            print(name)
+
             n = name.findAll("h2")
-            print(n)
             p = price.findAll("span")
             r = rating.findAll("span", attrs={"class": "rating-stars"})
             for finalPrice, finalName, finalRating in zip(p, n, r):
