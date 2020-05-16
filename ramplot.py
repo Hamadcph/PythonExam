@@ -19,3 +19,7 @@ plt.xlabel('price')
 plt.ylabel('RamName')
 
 plt.show()
+
+#plot: der viser sammenhæng mellem antallet af stjerner og pris
+#Fortæller prisen om produktets kvalitet? 
+#
