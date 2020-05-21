@@ -79,5 +79,5 @@ with ThreadPoolExecutor(max_workers=2) as executor:
 # t2.start()
 
 # with threadpool: 3.3725512
+# without threadpool: 6.0666078
 # with threads: 5.5421385
-# without threads: 6.0666078
