@@ -1,10 +1,10 @@
-from selenium import webdriver
-from bs4 import BeautifulSoup
-from os import write
 import time
 from concurrent.futures import ThreadPoolExecutor
+from os import write
 
-
+import schedule
+from bs4 import BeautifulSoup
+from selenium import webdriver
 
 start = time.perf_counter()
 
@@ -61,6 +61,8 @@ def scrape_ram():
                 for finalPrice, finalName, finalRating in zip(p, n, r):
                     f.write(finalName.text + "," + finalPrice.text + "," + finalRating["title"] + "\n")
 
+
+
 # scrape_cpu()
 # scrape_ram()
 with ThreadPoolExecutor(max_workers=2) as executor:
@@ -69,8 +71,12 @@ with ThreadPoolExecutor(max_workers=2) as executor:
     finish = time.perf_counter()
     #print(finish)
 
+schedule.every().monday.do(scrape_cpu)
+schedule.every().monday.do(scrape_ram)
 
-
+while True:
+    schedule.run_pending()
+    time.sleep(1)
 
 # t1 = threading.Thread(target=scrape_cpu)
 # t2 = threading.Thread(target=scrape_ram)

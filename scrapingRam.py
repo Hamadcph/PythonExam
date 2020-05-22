@@ -1,7 +1,8 @@
-from selenium import webdriver
-from bs4 import BeautifulSoup
 import re
 from os import write
+
+from bs4 import BeautifulSoup
+from selenium import webdriver
 
 driver = webdriver.Chrome()
 
