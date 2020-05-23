@@ -3,8 +3,6 @@ import pandas as pd
 import time
 from concurrent.futures import ThreadPoolExecutor
 
-
-
 def ram_price_name():
 
     x = []
@@ -26,7 +24,7 @@ def ram_price_name():
 
     plt.show()
 
-# ram_price_name()
+ram_price_name()
     
 def ram_price_stars():
 
@@ -51,7 +49,7 @@ def ram_price_stars():
 
     
 
-# ram_price_stars()
+ram_price_stars()
 
 def ram_stars_name():
     x = []
@@ -75,5 +73,3 @@ def ram_stars_name():
 
 ram_stars_name()
 
-#plot: der viser sammenhæng mellem antallet af stjerner og pris
-#Fortæller prisen om produktets kvalitet? 

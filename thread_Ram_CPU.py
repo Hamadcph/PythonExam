@@ -1,7 +1,6 @@
 import time
 from concurrent.futures import ThreadPoolExecutor
 from os import write
-
 import schedule
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -11,6 +10,7 @@ start = time.perf_counter()
 driver = webdriver.Chrome()
 
 def scrape_cpu(): 
+    print('starting cpu-scrape')
     with open('cpu.csv', 'w') as f:
         f.write("CpuName, price, rating \n")
 
@@ -33,17 +33,18 @@ def scrape_cpu():
                 p = price.findAll("span")
                 r = rating.findAll("span", attrs={"class": "rating-stars"})
                 for finalPrice, finalName, finalRating in zip(p, n, r):
-                    f.write(finalName.text + "," + finalPrice.text +  "," + finalRating["title"] + "\n")
-
+                    f.write(finalName.text + "," + finalPrice.text[0:len(finalPrice.text)-2].replace(".","") +  "," + (finalRating["title"])[0:3] + "\n")
+    print('done cpu-scrape')
 
 def scrape_ram():
-   with open('ram.csv', 'w') as f:
-    f.write("RamName, price, rating \n")
+    print('starting ram-scrape')
+    with open('ram.csv', 'w') as f:
+        f.write("RamName, price, rating \n")
 
-    url = "https://www.komplett.dk/category/11209/hardware/pc-komponenter/hukommelse-ram?nlevel=10000%C2%A728003%C2%A711209&hits=100"
-    driver.get(url)
-    html = driver.page_source
-    page_content = BeautifulSoup(html, features="lxml")
+        url = "https://www.komplett.dk/category/11209/hardware/pc-komponenter/hukommelse-ram?nlevel=10000%C2%A728003%C2%A711209&hits=100"
+        driver.get(url)
+        html = driver.page_source
+        page_content = BeautifulSoup(html, features="lxml")
 
     with open('ram.csv', 'a') as f:
 
@@ -59,7 +60,8 @@ def scrape_ram():
                 r = rating.findAll("span", attrs={"class": "rating-stars"})
 
                 for finalPrice, finalName, finalRating in zip(p, n, r):
-                    f.write(finalName.text + "," + finalPrice.text + "," + finalRating["title"] + "\n")
+                    f.write(finalName.text + "," + finalPrice.text[0:len(finalPrice.text)-2].replace(".","") + "," + (finalRating["title"])[0:3] + "\n")
+    print('done ram-scrape')
 
 
 
@@ -68,10 +70,10 @@ def scrape_ram():
 with ThreadPoolExecutor(max_workers=2) as executor:
     future = executor.submit(scrape_cpu)
     future2 = executor.submit(scrape_ram)
-    finish = time.perf_counter()
+    #finish = time.perf_counter()
     #print(finish)
 
-schedule.every().monday.do(scrape_cpu)
+schedule.every(1).monday.do(scrape_cpu)
 schedule.every().monday.do(scrape_ram)
 
 while True:

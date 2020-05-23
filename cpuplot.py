@@ -26,7 +26,7 @@ def cpu_price_name():
 
     plt.show()
 
-# cpu_price_name()
+cpu_price_name()
     
 def cpu_price_stars():
 
@@ -54,9 +54,7 @@ def cpu_price_stars():
     plt.xlim(right=1200)
     plt.show()
 
-    
-
-#cpu_price_stars()
+cpu_price_stars()
 
 def cpu_stars_name():
     x = []
